@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YEDOS - Statistics</title>
+    <link rel="stylesheet" href="demo.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.1/dist/chartjs-adapter-moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+</head>
+<body>
+    <!-- Demo sayfasını gizli iframe olarak yükle -->
+    <iframe src="demo.html" style="display: none;"></iframe>
+
+    <div class="header">
+        <div class="header-actions">
+            <button class="back-btn" onclick="window.location.href='demo.html'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Device
+            </button>
+            <button class="excel-btn" onclick="exportToExcel()" title="Export to Excel">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <path d="M8 13h8M8 17h8M10 9h4"/>
+                </svg>
+            </button>
+        </div>
+        <h1>Battery Statistics</h1>
+    </div>
+
+    <div class="statistics-page">
+        <div class="live-data">
+            <div class="data-header">
+                <h3>Live Device Data</h3>
+                <span class="update-time"></span>
+            </div>
+            <div class="data-grid">
+                <div class="data-item">
+                    <span class="label">Battery Level</span>
+                    <span class="value battery-value">---%</span>
+                </div>
+                <div class="data-item">
+                    <span class="label">Total Voltage</span>
+                    <span class="value voltage-value">--- V</span>
+                </div>
+                <div class="data-item">
+                    <span class="label">Current</span>
+                    <span class="value current-value">--- A</span>
+                </div>
+                <div class="data-item">
+                    <span class="label">Temperature</span>
+                    <span class="value temp-value">--- °C</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <h3>Battery Level History</h3>
+                <div class="time-range">
+                    <button class="time-btn active" data-range="1h">1H</button>
+                    <button class="time-btn" data-range="6h">6H</button>
+                    <button class="time-btn" data-range="24h">24H</button>
+                </div>
+            </div>
+            <canvas id="batteryChart"></canvas>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card voltage-stats">
+                <h4>Voltage History</h4>
+                <canvas id="voltageChart"></canvas>
+            </div>
+            <div class="stat-card current-stats">
+                <h4>Current History</h4>
+                <canvas id="currentChart"></canvas>
+            </div>
+            <div class="stat-card temperature-stats">
+                <h4>Temperature History</h4>
+                <canvas id="temperatureChart"></canvas>
+            </div>
+            <div class="stat-card cell-stats">
+                <h4>Cell Voltage Distribution</h4>
+                <canvas id="cellChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="statistics.js"></script>
+</body>
+</html>

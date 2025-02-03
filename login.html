@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTAR GRUP BMS - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="brand-container">
+                <div class="brand-logo">
+                    <div class="battery-icon">
+                        <div class="lightning">⚡</div>
+                    </div>
+                </div>
+                <h2 class="brand-name">YEDOS</h2>
+            </div>
+            <h1>Welcome</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <div class="caps-lock-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L1 21h22L12 2zm0 3.45l8 14.1H4l8-14.1zM11 16h2v2h-2v-2zm0-7h2v5h-2V9z"/>
+                        </svg>
+                        <span>Caps Lock is on</span>
+                    </div>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Forgot password</a>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <div class="signup-link">
+                    Don't have an account? <a href="register.html">Sign up here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

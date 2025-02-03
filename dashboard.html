@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YEDOS BMS</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="logo-container">
+            <div class="brand-logo">
+                <div class="battery-icon">
+                    <div class="battery-level"></div>
+                </div>
+                <div class="lightning">⚡</div>
+            </div>
+        </div>
+
+        <div class="monitoring-options">
+            <a href="#" class="monitoring-card local">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 6.5c-2.49 0-4 2.02-4 4.5v6h8v-6c0-2.48-1.51-4.5-4-4.5zm2.5 3.3l-2.8 2.8h1.8L11 15.3l2.8-2.8h-1.8l2.5-2.7zm.5-5.8h-6v2h6v-2zm-4 16h2v2h-2v-2z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>Local monitoring</h3>
+                    <p>bluetooth device</p>
+                </div>
+                <div class="arrow">›</div>
+            </a>
+
+            <a href="#" class="monitoring-card remote">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 6c3.33 0 5.99 2.69 5.99 6L18 12c0-2.21-1.79-4-4-4s-4 1.79-4 4v4c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-4c0-3.31-2.66-6-5.99-6zm3 7h-6v-1c0-1.65 1.35-3 3-3s3 1.35 3 3v1z"/>
+                        <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>Remote monitoring</h3>
+                    <p>Wifi or 4G devices</p>
+                </div>
+                <div class="arrow">›</div>
+            </a>
+        </div>
+        
+        <a href="login.html" class="back-button">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+            </div>
+            <span>Back</span>
+        </a>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>

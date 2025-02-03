@@ -1,0 +1,354 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #2b5876 0%, #4e4376 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 90px 20px 20px;
+    color: white;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    z-index: 1000;
+}
+
+.header h1 {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.battery-status {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.gauge-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.gauge {
+    width: 200px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 100px 100px 0 0;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.gauge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(from 180deg, #4CAF50 0%, #8BC34A 50%, #FFEB3B 75%, #FF9800 100%);
+    mask: radial-gradient(at 50% 100%, white 55%, transparent 55.5%);
+    -webkit-mask: radial-gradient(at 50% 100%, white 55%, transparent 55.5%);
+}
+
+.gauge-value {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.battery-type {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+}
+
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    color: #64b5f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.stat-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #64b5f6;
+}
+
+.connection-modes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.mode-button {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mode-button.active {
+    background: rgba(100, 181, 246, 0.2);
+    border: 1px solid #64b5f6;
+}
+
+.mode-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+}
+
+.mode-icon.single::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 30px;
+    border: 2px solid #64b5f6;
+    border-radius: 3px;
+}
+
+.mode-icon.parallel::before,
+.mode-icon.parallel::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 30px;
+    border: 2px solid #64b5f6;
+    border-radius: 3px;
+}
+
+.mode-icon.parallel::before {
+    left: 25%;
+}
+
+.mode-icon.parallel::after {
+    right: 25%;
+}
+
+.mode-icon.series::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 2px solid #64b5f6;
+    border-radius: 3px;
+}
+
+.mode-button span {
+    font-size: 14px;
+    text-align: center;
+}
+
+.bluetooth-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-box {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.info-icon {
+    width: 24px;
+    height: 24px;
+    color: #64b5f6;
+}
+
+.info-content {
+    flex: 1;
+}
+
+.info-label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 12px 15px;
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.back-button .icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button .icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.back-button span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.device-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.device-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.device-name {
+    font-size: 14px;
+    color: white;
+    flex: 1;
+}
+
+.connect-btn {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.connect-btn:hover {
+    background: #357abd;
+    transform: translateY(-1px);
+}

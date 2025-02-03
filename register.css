@@ -1,0 +1,69 @@
+.subtitle {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.name-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.name-group .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.terms-group {
+    margin: 20px 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.checkbox-container input {
+    width: auto;
+    margin-right: 5px;
+}
+
+.terms-text {
+    line-height: 1.4;
+}
+
+.terms-link {
+    color: #4a6da7;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.terms-link:hover {
+    color: #2d4373;
+}
+
+.register-btn {
+    background-color: #4CAF50;
+}
+
+.register-btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 480px) {
+    .name-group {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .login-card {
+        padding: 30px 20px;
+    }
+}
