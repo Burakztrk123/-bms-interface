@@ -352,3 +352,27 @@ body {
     background: #357abd;
     transform: translateY(-1px);
 }
+
+.device-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #2c3e50;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: #34495e;
+}
+
+.filter-btn.active {
+    background: #3498db;
+}
