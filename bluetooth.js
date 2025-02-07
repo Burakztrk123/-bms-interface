@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+import haAPI from './ha-api.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
     // Mode butonları için event listener
     const modeButtons = document.querySelectorAll('.mode-button');
     modeButtons.forEach(button => {
@@ -74,6 +76,50 @@ document.addEventListener('DOMContentLoaded', () => {
         const gaugeValue = document.querySelector('.gauge-value .value');
         gaugeValue.textContent = value;
     }
+
+    // Batarya verilerini güncelle
+    async function updateBatteryData() {
+        try {
+            const batteryData = await haAPI.getBatteryData();
+            
+            // SOC değerini güncelle
+            const socData = batteryData.find(data => data.entity_id === 'sensor.battery_soc');
+            if (socData) {
+                const socValue = parseFloat(socData.state);
+                document.querySelector('.value').textContent = socValue.toFixed(1);
+                updateGauge(socValue);
+            }
+
+            // Voltaj değerini güncelle
+            const voltageData = batteryData.find(data => data.entity_id === 'sensor.battery_voltage');
+            if (voltageData) {
+                const voltageValue = parseFloat(voltageData.state);
+                document.querySelector('.stat-value').textContent = `${voltageValue.toFixed(2)}V`;
+            }
+
+            // Akım değerini güncelle
+            const currentData = batteryData.find(data => data.entity_id === 'sensor.battery_current');
+            if (currentData) {
+                const currentValue = parseFloat(currentData.state);
+                document.querySelectorAll('.stat-value')[1].textContent = `${currentValue.toFixed(2)}A`;
+            }
+        } catch (error) {
+            console.error('Error updating battery data:', error);
+        }
+    }
+
+    // WebSocket bağlantısını kur
+    haAPI.connectWebSocket((data) => {
+        if (data.type === 'state_changed') {
+            // Batarya verilerini güncelle
+            updateBatteryData();
+        }
+    });
+
+    // Sayfa yüklendiğinde ilk verileri al
+    await updateBatteryData();
+    // Her 5 saniyede bir verileri güncelle
+    setInterval(updateBatteryData, 5000);
 
     // Test için örnek değer
     updateGauge(0);
