@@ -331,6 +331,14 @@ body {
     gap: 15px;
 }
 
+.device-card[data-type="demo"] {
+    display: none;  /* Varsayılan olarak gizli */
+}
+
+.device-card[data-type="demo"].show {
+    display: flex;  /* JavaScript ile .show class'ı eklendiğinde görünür */
+}
+
 .device-name {
     font-size: 14px;
     color: white;

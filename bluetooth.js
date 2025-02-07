@@ -1,75 +1,73 @@
 import haAPI from './ha-api.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Sayfa yüklendi');
+
     // Mode butonları için event listener
     const modeButtons = document.querySelectorAll('.mode-button');
     modeButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Aktif sınıfını kaldır
             modeButtons.forEach(btn => btn.classList.remove('active'));
-            // Tıklanan butona aktif sınıfını ekle
             button.classList.add('active');
         });
     });
 
-    // Filtre butonlarını seç
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const deviceCards = document.querySelectorAll('.device-card');
-    const deviceCount = document.getElementById('deviceCount');
-
-    // Demo Device butonunu varsayılan olarak aktif yap
+    // Demo Device işlevselliği
     const demoButton = document.querySelector('[data-filter="demo"]');
     const allButton = document.querySelector('[data-filter="all"]');
-    
-    // Başlangıçta All Devices aktif, ama hiç cihaz gösterme
-    updateDeviceDisplay('all');
+    const demoCard = document.querySelector('.device-card[data-type="demo"]');
+    const connectButton = document.querySelector('.connect-btn');
 
-    // Filtre butonlarına tıklama olayı ekle
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Aktif butonu güncelle
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            // Cihazları filtrele
-            const filterValue = button.getAttribute('data-filter');
-            updateDeviceDisplay(filterValue);
-        });
+    console.log('Elementler bulundu:', {
+        demoButton: demoButton,
+        allButton: allButton,
+        demoCard: demoCard,
+        connectButton: connectButton
     });
 
-    // Cihaz görüntüleme ve sayaç güncelleme fonksiyonu
-    function updateDeviceDisplay(filterValue) {
-        let visibleCount = 0;
-
-        deviceCards.forEach(card => {
-            const cardType = card.getAttribute('data-type');
+    // Demo butonu tıklama olayı
+    if (demoButton) {
+        demoButton.addEventListener('click', () => {
+            console.log('Demo butonu tıklandı');
+            // Aktif butonu değiştir
+            demoButton.classList.add('active');
+            allButton.classList.remove('active');
             
-            if (filterValue === 'demo') {
-                // Demo Device filtresinde sadece demo cihazını göster
-                if (cardType === 'demo') {
-                    card.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
-            } else {
-                // All Devices filtresinde şimdilik hiçbir cihaz gösterme
-                card.style.display = 'none';
+            // Demo cihazını göster
+            if (demoCard) {
+                console.log('Demo card gösteriliyor');
+                demoCard.style.display = 'flex';
             }
         });
-
-        // Cihaz sayısını güncelle
-        deviceCount.textContent = visibleCount;
     }
 
-    // Connect butonlarına tıklama olayı ekle
-    const connectButtons = document.querySelectorAll('.connect-btn');
-    connectButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Demo sayfasına yönlendir
-            window.location.href = 'demo.html';
+    // All Devices butonu tıklama olayı
+    if (allButton) {
+        allButton.addEventListener('click', () => {
+            console.log('All Devices butonu tıklandı');
+            // Aktif butonu değiştir
+            allButton.classList.add('active');
+            demoButton.classList.remove('active');
+            
+            // Demo cihazını gizle
+            if (demoCard) {
+                console.log('Demo card gizleniyor');
+                demoCard.style.display = 'none';
+            }
         });
-    });
+    }
+
+    // Connect butonu işlevselliği
+    if (connectButton) {
+        connectButton.addEventListener('click', () => {
+            console.log('Connect butonu tıklandı');
+            const card = connectButton.closest('.device-card');
+            if (card && card.getAttribute('data-type') === 'demo') {
+                console.log('Demo sayfasına yönlendiriliyor');
+                window.location.href = 'demo.html';
+            }
+        });
+    }
 
     // Gauge değerini güncelleme fonksiyonu
     function updateGauge(value) {
@@ -83,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const batteryData = await haAPI.getBatteryData();
             
             // SOC değerini güncelle
-            const socData = batteryData.find(data => data.entity_id === 'sensor.battery_soc');
+            const socData = batteryData.find(data => data.entity_id === 'sensor.bms_soc');
             if (socData) {
                 const socValue = parseFloat(socData.state);
                 document.querySelector('.value').textContent = socValue.toFixed(1);
@@ -91,14 +89,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             // Voltaj değerini güncelle
-            const voltageData = batteryData.find(data => data.entity_id === 'sensor.battery_voltage');
+            const voltageData = batteryData.find(data => data.entity_id === 'sensor.bms_voltage');
             if (voltageData) {
                 const voltageValue = parseFloat(voltageData.state);
                 document.querySelector('.stat-value').textContent = `${voltageValue.toFixed(2)}V`;
             }
 
             // Akım değerini güncelle
-            const currentData = batteryData.find(data => data.entity_id === 'sensor.battery_current');
+            const currentData = batteryData.find(data => data.entity_id === 'sensor.bms_current');
             if (currentData) {
                 const currentValue = parseFloat(currentData.state);
                 document.querySelectorAll('.stat-value')[1].textContent = `${currentValue.toFixed(2)}A`;
@@ -111,16 +109,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     // WebSocket bağlantısını kur
     haAPI.connectWebSocket((data) => {
         if (data.type === 'state_changed') {
-            // Batarya verilerini güncelle
             updateBatteryData();
         }
     });
 
     // Sayfa yüklendiğinde ilk verileri al
     await updateBatteryData();
+    
     // Her 5 saniyede bir verileri güncelle
     setInterval(updateBatteryData, 5000);
 
-    // Test için örnek değer
-    updateGauge(0);
+    // Başlangıçta All Devices aktif olsun
+    console.log('All Devices butonu aktif ediliyor');
+    allButton.click();
 });
