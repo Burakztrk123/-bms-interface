@@ -46,10 +46,10 @@ class HomeAssistantAPI {
     // Batarya verilerini al (örnek entity_id'ler)
     async getBatteryData() {
         const batteryEntities = [
-            'sensor.battery_voltage',
-            'sensor.battery_current',
-            'sensor.battery_power',
-            'sensor.battery_soc'
+            'sensor.bms_voltage',        // Sizin voltage sensörünüzün ID'si
+            'sensor.bms_current',        // Sizin current sensörünüzün ID'si
+            'sensor.bms_power',          // Sizin power sensörünüzün ID'si
+            'sensor.bms_soc'             // Sizin SOC sensörünüzün ID'si
         ];
 
         try {
