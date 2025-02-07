@@ -20,7 +20,8 @@ node_modules/
 dist/
 build/
 
-# Ortam değişkenleri
+# Configuration files with sensitive data
+config.js
 .env
 .env.local
 .env.*.local

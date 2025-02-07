@@ -1,9 +1,11 @@
+import { config } from './config.js';
+
 // Home Assistant API Configuration
 const HA_CONFIG = {
-    baseUrl: 'http://your-home-assistant-url:8123', // Home Assistant URL'nizi buraya ekleyin
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmZmRhMzA1ZDU5Zjc0NWFjOTQ5OTRkM2QzMjcyOTNmZCIsImlhdCI6MTczODg0NDgyMSwiZXhwIjoyMDU0MjA0ODIxfQ.VzK6K672h0_g3yEZNJkysAoxZHcZavYs8SO5t3ykXPk',
+    baseUrl: config.baseUrl,
+    token: config.token,
     headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmZmRhMzA1ZDU5Zjc0NWFjOTQ5OTRkM2QzMjcyOTNmZCIsImlhdCI6MTczODg0NDgyMSwiZXhwIjoyMDU0MjA0ODIxfQ.VzK6K672h0_g3yEZNJkysAoxZHcZavYs8SO5t3ykXPk',
+        'Authorization': `Bearer ${config.token}`,
         'Content-Type': 'application/json',
     }
 };
