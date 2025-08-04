@@ -10,8 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f0f2f5;
-    background: linear-gradient(145deg, #e6e9f0 0%, #eef1f5 100%);
+    background: var(--background-gradient);
 }
 
 .login-container {

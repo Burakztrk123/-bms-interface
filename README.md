@@ -11,6 +11,7 @@ Modern ve kullanıcı dostu bir batarya yönetim sistemi web arayüzü.
 - 🌡️ Sıcaklık takibi
 - ⚡ Voltaj ve akım monitörleme
 - 🔍 Hücre bazlı analiz
+- 🧭 Kurumsal tema ve ortak navigasyon çubuğu
 
 ## Teknolojiler
 
